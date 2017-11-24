@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>The ghost game</h1>
+<h2>Guess what door ghost is behind? Door 1 or 2 or 3 or 4 or 5 or 6? You have 3 chances</h2>
+
+<p>Wins:<span id="winCount"></span></p>
+<p></p>
+<p>Losses:<span id="lossCount"></span></p>
+<p></p>
+<p>Guesses left:<span id="guessesLeft"></span></p>
+<p></p>
+<p>Your guesses so far:<span id="guessesSoFar"></span></p>
+<p></p>
+
+<script type="text/javascript">
+
+var winCount = 0;
+var lossCount = 0;
+var guessesLeft = 3;
+var guessSoFar = 0;
+var guessedDoor=[];
+
+function displayarray() {
+    document.getElementById("guessesSoFar").innerHTML = guessedDoor.toString();
+}
+
+
+function initFunction () {
+guessesLeft = 3;
+guessedDoor=[];
+document.getElementById("guessesLeft").innerHTML = guessesLeft;
+document.getElementById("guessesSoFar").innerHTML = guessSoFar;
+ghostDoor=Math.floor((Math.random() * 6) + 1);
+console.log(ghostDoor)
+}
+
+document.getElementById("winCount").innerHTML = winCount;
+document.getElementById("lossCount").innerHTML = lossCount;
+
+initFunction();
+
+   document.onkeyup = function(event) {
+
+        number=String.fromCharCode(event.keyCode).trim();
+       
+        guessesLeft=guessesLeft-1;
+        document.getElementById("guessesLeft").innerHTML = guessesLeft;
+        console.log(guessesLeft);
+
+        if (parseInt(number)==parseInt(ghostDoor)) {
+            winCount=winCount+1;
+            document.getElementById("winCount").innerHTML = winCount;
+            displayarray();
+            alert("You got it ")
+            initFunction();
+          }
+        else {
+            alert("sorry wrong door: "+number+" try again");
+            guessedDoor.push(number);
+            displayarray();
+         }
+        if (guessesLeft <= 0)
+            { 
+            displayarray();
+            initFunction();
+            lossCount=lossCount+1;
+            document.getElementById("lossCount").innerHTML = lossCount;
+            alert("the ghost is behind door: "+ghostDoor) }
+    }
+   
+
+</script>
+
+</body>
+</html>
